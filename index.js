@@ -164,14 +164,30 @@ const tree = (arr) => {
       callbackfn(node.value);
       return;
     }
-
-    // takes a callback fn and passes the value node as parameter to the call back function
-    // also takes a node as parameter starting with the root
-    // creates an array if there isnt one already
-    // adds the parameter node to the queue
-    // checks the queue and for each member of the queue, passes the value to the callback function and then logs the children to the queue.
-    // then it goes to the next member in the array and recusrively calls the leverl order again with the next node again passing the value as parameter
-    // and adding the children to the queue.
+  };
+  const inOrder = (callbackfn, node = root) => {
+    if (node === null) {
+      return;
+    }
+    inOrder(callbackfn, node.lChild);
+    callbackfn(node.value);
+    inOrder(callbackfn, node.rChild);
+  };
+  const preOrder = (callbackfn, node = root) => {
+    if (node === null) {
+      return;
+    }
+    callbackfn(node.value);
+    preOrder(callbackfn, node.lChild);
+    preOrder(callbackfn, node.rChild);
+  };
+  const postOrder = (callbackfn, node = root) => {
+        if (node === null) {
+      return;
+    }
+    postOrder(callbackfn, node.lChild);
+    postOrder(callbackfn, node.rChild);
+    callbackfn(node.value);
   };
 
   // below are helper functions
@@ -191,6 +207,9 @@ const tree = (arr) => {
     deleteNode,
     logValues,
     levelOrder,
+    preOrder,
+    inOrder,
+    postOrder,
     returnRoot,
   };
 };
@@ -212,5 +231,5 @@ ex.deleteNode(4);
         └── 1
 
 */
-ex.levelOrder(ex.logValues);
+ex.postOrder(ex.logValues);
 ex.prettyPrint(ex.returnRoot());
