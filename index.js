@@ -91,13 +91,8 @@ const tree = (arr) => {
     }
   };
   const deleteNode = (value, currNode = root) => {
-    // should look for the value recursively and check if it has nodes on the children. for each active node that it does.
-    // node will be areference to the child of the parent. so reassigning node will reassign the child node of the parent if
-    // it has a parent.
-
     let oldNode = findNode(value);
     let parentNode = findNode(value, root, "parent");
-
     // three cases: if no children, if one child, if both children
     if (oldNode.rChild === null && oldNode.lChild === null) {
       if (parentNode !== oldNode) {
@@ -149,6 +144,36 @@ const tree = (arr) => {
       return;
     }
   };
+  const logValues = (value) => {
+    console.log(value);
+  };
+  const levelOrder = (callbackfn, node = root, queue = []) => {
+    if (node.rChild !== null) {
+      queue.push(node.rChild);
+    }
+    if (node.lChild !== null) {
+      queue.push(node.lChild);
+    }
+    if (queue.length > 0) {
+      let temp = queue[0];
+      queue.shift();
+      callbackfn(node.value);
+      levelOrder(callbackfn, temp, queue);
+    } else {
+      // if after checking for children there are no more left and the queue is empty, then probably return
+      callbackfn(node.value);
+      return;
+    }
+
+    // takes a callback fn and passes the value node as parameter to the call back function
+    // also takes a node as parameter starting with the root
+    // creates an array if there isnt one already
+    // adds the parameter node to the queue
+    // checks the queue and for each member of the queue, passes the value to the callback function and then logs the children to the queue.
+    // then it goes to the next member in the array and recusrively calls the leverl order again with the next node again passing the value as parameter
+    // and adding the children to the queue.
+  };
+
   // below are helper functions
   const returnRoot = () => root;
 
@@ -164,6 +189,8 @@ const tree = (arr) => {
     findNode,
     insertNode,
     deleteNode,
+    logValues,
+    levelOrder,
     returnRoot,
   };
 };
@@ -171,4 +198,19 @@ const tree = (arr) => {
 const ex = tree(arr);
 ex.buildTree();
 ex.deleteNode(4);
+/* output:
+
+│           ┌── 6345
+│       ┌── 324
+│   ┌── 67
+│   │   │   ┌── 23
+│   │   └── 9
+└── 8
+    │   ┌── 7
+    └── 5
+        │   ┌── 3
+        └── 1
+
+*/
+ex.levelOrder(ex.logValues);
 ex.prettyPrint(ex.returnRoot());
