@@ -1,0 +1,27 @@
+{
+  "name": "@charlesvill/balanced-bst",
+  "version": "1.0.0",
+  "description": "Implementation of a balanced binary search tree starting from an unsorted array",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Charles Villalpando",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charlesvill/Balanced-BinaryST.git"
+  },
+  "bugs": {
+    "url": "https://github.com/charlesvill/Balanced-BinaryST/issues"
+  },
+  "homepage": "https://github.com/charlesvill/Balanced-BinaryST#readme",
+  "dependencies": {
+    "@charlesvill/merge-sort": "^1.0.0"
+  },
+  "devDependencies": {
+    "prettier": "3.0.3"
+  }
+}
