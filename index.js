@@ -190,6 +190,37 @@ const tree = (arr) => {
     callbackfn(node.value);
   };
 
+  const height = (value) => {
+    const node = findNode(value);
+    let tmpNode = node;
+    let lcount = 0;
+    let rcount = 0;
+    while(tmpNode !== null){
+      if(tmpNode.lChild !== null){
+        tmpNode = tmpNode.lChild;
+        lcount++;
+      }else if(tmpNode.rChild !== null){
+        tmpNode = tmpNode.rChild;
+        lcount++;
+      }else if(tmpNode.lChild === null && tmpNode.rChild === null){
+        break;
+      }
+    }
+    tmpNode = node;
+    while(tmpNode !== null){
+      if(tmpNode.rChild !== null){
+        tmpNode = tmpNode.rChild;
+        rcount++;
+      }else if(tmpNode.lChild !== null){
+        tmpNode = tmpNode.lChild;
+        rcount++;
+      }else if(tmpNode.lChild === null && tmpNode.rChild === null){
+        break;
+      }
+    }
+    return lcount > rcount ? lcount : rcount;
+  }
+
   // below are helper functions
   const returnRoot = () => root;
 
@@ -210,6 +241,7 @@ const tree = (arr) => {
     preOrder,
     inOrder,
     postOrder,
+    height,
     returnRoot,
   };
 };
@@ -232,4 +264,6 @@ ex.deleteNode(4);
 
 */
 ex.postOrder(ex.logValues);
+
+console.log(ex.height(5));
 ex.prettyPrint(ex.returnRoot());
