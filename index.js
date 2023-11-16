@@ -1,6 +1,5 @@
 import mergeSort from "@charlesvill/merge-sort";
 
-
 const node = (value) => {
   const lChild = null;
   const rChild = null;
@@ -143,7 +142,7 @@ const tree = (arr) => {
       return;
     }
   };
- const levelOrder = (callbackfn, node = root, queue = []) => {
+  const levelOrder = (callbackfn, node = root, queue = []) => {
     if (node.rChild !== null) {
       queue.push(node.rChild);
     }
@@ -178,7 +177,7 @@ const tree = (arr) => {
     preOrder(callbackfn, node.rChild);
   };
   const postOrder = (callbackfn, node = root) => {
-        if (node === null) {
+    if (node === null) {
       return;
     }
     postOrder(callbackfn, node.lChild);
@@ -187,68 +186,65 @@ const tree = (arr) => {
   };
 
   const height = (node) => {
-    if(node === null){
+    if (node === null) {
       console.error("Error: no root found");
       return null;
     }
     let tmpNode = node;
     let lcount = 1;
     let rcount = 1;
-    while(tmpNode !== null){
-      if(tmpNode.lChild !== null){
+    while (tmpNode !== null) {
+      if (tmpNode.lChild !== null) {
         tmpNode = tmpNode.lChild;
         lcount++;
-      }else if(tmpNode.rChild !== null){
+      } else if (tmpNode.rChild !== null) {
         tmpNode = tmpNode.rChild;
         lcount++;
-      }else if(tmpNode.lChild === null && tmpNode.rChild === null){
+      } else if (tmpNode.lChild === null && tmpNode.rChild === null) {
         break;
       }
     }
     tmpNode = node;
-    while(tmpNode !== null){
-      if(tmpNode.rChild !== null){
+    while (tmpNode !== null) {
+      if (tmpNode.rChild !== null) {
         tmpNode = tmpNode.rChild;
         rcount++;
-      }else if(tmpNode.lChild !== null){
+      } else if (tmpNode.lChild !== null) {
         tmpNode = tmpNode.lChild;
         rcount++;
-      }else if(tmpNode.lChild === null && tmpNode.rChild === null){
+      } else if (tmpNode.lChild === null && tmpNode.rChild === null) {
         break;
       }
     }
     return lcount > rcount ? lcount : rcount;
-  }
-  const  depth = (node) => {
+  };
+  const depth = (node) => {
     let count = 0;
     let tmpNode = root;
-    while(tmpNode !== node){
-      if(node.value < tmpNode.value){
+    while (tmpNode !== node) {
+      if (node.value < tmpNode.value) {
         tmpNode = tmpNode.lChild;
-      } else if(node.value > tmpNode.value){
+      } else if (node.value > tmpNode.value) {
         tmpNode = tmpNode.rChild;
-      } else if(tmpNode.rChild === null && tmpNode.lChild === null){
+      } else if (tmpNode.rChild === null && tmpNode.lChild === null) {
         console.error("Error: node not found!");
         return null;
       }
-      count ++;
+      count++;
     }
     return count;
-  }
+  };
   const isBalanced = () => {
     const rightH = height(root.rChild);
-    const leftH =  height(root.lChild);
+    const leftH = height(root.lChild);
     return Math.abs(rightH - leftH) > 1 ? false : true;
-  }
+  };
   const rebalance = () => {
     let arr = [];
-    inOrder(value => arr.push(value));
+    inOrder((value) => arr.push(value));
     buildTree(arr);
-  }
-
-  // below are helper functions
-  const returnRoot = () => root;
-
+  };
+  // below are helper functions for initialization of the tree
   const arrayPrepper = () => {
     const uniqueArr = removeDuplicates(arr);
     bstArr = mergeSort(uniqueArr);
@@ -269,23 +265,21 @@ const tree = (arr) => {
     depth,
     isBalanced,
     rebalance,
-    returnRoot,
   };
 };
 
-
-// driver scripts: 
+// driver scripts:
 // first initialize the tree object and build the buildTree
 
 // build random array num < 100 and rebuild the tree
 const ranArrayBuilder = (n, range) => {
   let array = [];
-  for(let i = 0; i < n; i++){
+  for (let i = 0; i < n; i++) {
     array.push(Math.floor(Math.random() * (range + 1)));
     console.log("some shit is going on");
   }
   return array;
-}
+};
 let ranArray = ranArrayBuilder(30, 100);
 const ranTree = tree(ranArray);
 ranTree.buildTree();
@@ -294,32 +288,32 @@ console.log(`tree is balanced: ${ranTree.isBalanced()}`);
 
 // print out level, in, pre, and post order
 console.log("Level Order traversal: ");
-ranTree.levelOrder(value => console.log(value));
+ranTree.levelOrder((value) => console.log(value));
 console.log("Inorder traversal: ");
-ranTree.inOrder(value => console.log(value));
+ranTree.inOrder((value) => console.log(value));
 console.log("Preorder traversal: ");
-ranTree.preOrder(value => console.log(value));
+ranTree.preOrder((value) => console.log(value));
 console.log("Postorder traversal: ");
-ranTree.postOrder(value => console.log(value));
+ranTree.postOrder((value) => console.log(value));
 
 // unbalance the tree and print rew tree with balance report
-for(let i = 1; i < 15; i++){
+for (let i = 1; i < 15; i++) {
   ranTree.insertNode(100 + i);
 }
 ranTree.prettyPrint();
 console.log(`tree is balanced: ${ranTree.isBalanced()}`);
 
-// rebalance the tree and confirm by printing tree, run balance report 
+// rebalance the tree and confirm by printing tree, run balance report
 ranTree.rebalance();
 ranTree.prettyPrint();
 console.log(`tree is balanced: ${ranTree.isBalanced()}`);
 
 // print out all traversals once rebalanced
 console.log("Level Order traversal: ");
-ranTree.levelOrder(value => console.log(value));
+ranTree.levelOrder((value) => console.log(value));
 console.log("Inorder traversal: ");
-ranTree.inOrder(value => console.log(value));
+ranTree.inOrder((value) => console.log(value));
 console.log("Preorder traversal: ");
-ranTree.preOrder(value => console.log(value));
+ranTree.preOrder((value) => console.log(value));
 console.log("Postorder traversal: ");
-ranTree.postOrder(value => console.log(value));
+ranTree.postOrder((value) => console.log(value));
